@@ -2,7 +2,8 @@ import express from "express";
 import { prisma } from "../prisma/client.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { RecommendationAgent } from "../utils/aiAgent.js";
+// import { RecommendationAgent } from "../utils/aiAgent.js";
+import { insertRecord, insertRecords } from "../utils/recommender.js";
 
 export const router = express.Router();
 
@@ -65,6 +66,7 @@ router.post("/createProperty", async (req, res, next) => {
     if (!property) {
       res.status(401).json({ error: ["Unable to create property"] });
     }
+    insertRecord(property)
     res.status(201).json({ property });
   } catch (error) {
     next(error);
@@ -98,8 +100,8 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-router.get("/search", async (req, res, next)=>{
-  const {query, userId} = req.body
-  const result = await RecommendationAgent({query, userId})
-  res.status(200).json({result})
+router.get("/search", async (req, res, next) => {
+  const { query, userId } = req.body
+  // const result = await RecommendationAgent({ query, userId })
+  res.status(200).json({ result })
 })

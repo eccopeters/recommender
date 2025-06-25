@@ -22,8 +22,11 @@ export async function getIndex() {
 
 getIndex()
 
-export async function insertRecords({ records }) {
-  return await pc.index(indexName).upsertRecords(records)
+// export async function insertRecords({ records }) {
+//   return await pc.index(indexName).upsertRecords(records)
+// }
+export async function insertRecord(record) {
+  return await pc.index(indexName).upsert(record)
 }
 
 
